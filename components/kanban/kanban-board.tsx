@@ -132,7 +132,7 @@ export function KanbanBoard({ board, setBoard }: KanbanBoardProps) {
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
     >
-      <div className="flex w-full items-stretch gap-4 p-4 h-full overflow-x-auto">
+      <div className="flex w-full items-stretch gap-4 p-4 h-full overflow-x-auto overflow-y-hidden">
         {visibleColumns.map((column) => (
           <Column key={column.id} column={column} />
         ))}

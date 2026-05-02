@@ -56,7 +56,7 @@ export function Column({ column }: ColumnProps) {
 
   return (
     <div
-      className={`flex flex-col flex-1 min-w-[260px] rounded-xl ${bgColor} border border-slate-200/60 dark:border-slate-700/50`}
+      className={`flex flex-col flex-1 min-w-[260px] min-h-0 rounded-xl ${bgColor} border border-slate-200/60 dark:border-slate-700/50`}
     >
       <div className="flex items-center justify-between px-4 py-3">
         <div className="flex items-center gap-2">
@@ -80,7 +80,7 @@ export function Column({ column }: ColumnProps) {
 
       <div
         ref={setNodeRef}
-        className={`flex-1 flex flex-col gap-2 px-2 pb-2 min-h-[120px] transition-colors rounded-b-xl ${
+        className={`flex-1 flex flex-col gap-2 px-2 pb-2 min-h-[120px] overflow-y-auto transition-colors rounded-b-xl ${
           isOver ? "bg-slate-200/50 dark:bg-slate-700/20" : ""
         }`}
       >

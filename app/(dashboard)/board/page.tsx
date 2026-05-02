@@ -12,7 +12,7 @@ export default async function BoardPage() {
       <Suspense fallback={null}>
         <BoardFilters tags={tags} />
       </Suspense>
-      <div className="flex-1 overflow-auto">
+      <div className="flex-1 min-h-0 overflow-hidden">
         <BoardClient initialBoard={board} />
       </div>
     </div>
