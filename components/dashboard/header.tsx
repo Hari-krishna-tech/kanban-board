@@ -21,7 +21,7 @@ export function Header() {
   }, []);
 
   return (
-    <header className="flex h-14 items-center gap-4 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 lg:px-6">
+    <header className="flex h-16 items-center gap-4 border-b border-border/70 bg-background/82 px-4 backdrop-blur-xl lg:px-6">
       <Button
         variant="ghost"
         size="icon"
@@ -35,6 +35,7 @@ export function Header() {
       <Button
         variant="ghost"
         size="icon"
+        className="rounded-xl"
         onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
       >
         <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />

@@ -13,13 +13,13 @@ export default async function DashboardLayout({
   if (!session?.user) redirect("/login");
 
   return (
-    <div className="flex h-screen overflow-hidden">
+    <div className="flex h-screen overflow-hidden bg-background text-foreground">
       <Sidebar user={session.user} />
       <div className="flex flex-1 flex-col overflow-hidden">
         <Suspense fallback={<div className="h-14 border-b" />}>
           <Header />
         </Suspense>
-        <main className="flex-1 min-h-0 overflow-hidden bg-slate-50 dark:bg-slate-950">
+        <main className="app-surface flex-1 min-h-0 overflow-hidden">
           {children}
         </main>
       </div>

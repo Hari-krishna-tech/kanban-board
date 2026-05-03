@@ -20,17 +20,24 @@ interface ColumnProps {
 }
 
 const columnColors: Record<string, string> = {
-  Backlog: "bg-slate-100 dark:bg-slate-800",
-  Learning: "bg-blue-50 dark:bg-blue-950/30",
-  Practicing: "bg-amber-50 dark:bg-amber-950/30",
-  Completed: "bg-green-50 dark:bg-green-950/30",
+  Backlog: "bg-slate-100/80 dark:bg-slate-900/72",
+  Learning: "bg-sky-50/90 dark:bg-sky-950/24",
+  Practicing: "bg-amber-50/90 dark:bg-amber-950/24",
+  Completed: "bg-emerald-50/90 dark:bg-emerald-950/24",
 };
 
 const columnHeaderColors: Record<string, string> = {
-  Backlog: "text-slate-600 dark:text-slate-400",
-  Learning: "text-blue-600 dark:text-blue-400",
+  Backlog: "text-slate-600 dark:text-slate-300",
+  Learning: "text-sky-700 dark:text-sky-300",
   Practicing: "text-amber-600 dark:text-amber-400",
-  Completed: "text-green-600 dark:text-green-400",
+  Completed: "text-emerald-700 dark:text-emerald-300",
+};
+
+const columnAccentColors: Record<string, string> = {
+  Backlog: "bg-slate-400",
+  Learning: "bg-sky-500",
+  Practicing: "bg-amber-500",
+  Completed: "bg-emerald-500",
 };
 
 const columnIcons: Record<string, LucideIcon> = {
@@ -46,6 +53,7 @@ export function Column({ column }: ColumnProps) {
 
   const bgColor = columnColors[column.name] || "bg-slate-50 dark:bg-slate-900";
   const headerColor = columnHeaderColors[column.name] || "text-slate-600";
+  const accentColor = columnAccentColors[column.name] || "bg-slate-400";
   const Icon = columnIcons[column.name] || ClipboardList;
 
   const handleCreateTask = () => {
@@ -56,22 +64,25 @@ export function Column({ column }: ColumnProps) {
 
   return (
     <div
-      className={`flex flex-col flex-1 min-w-[260px] min-h-0 rounded-xl ${bgColor} border border-slate-200/60 dark:border-slate-700/50`}
+      className={`relative flex min-h-0 min-w-[280px] flex-1 flex-col overflow-hidden rounded-2xl border border-border/70 ${bgColor} shadow-sm backdrop-blur-xl`}
     >
-      <div className="flex items-center justify-between px-4 py-3">
+      <div className={`h-1 w-full ${accentColor}`} />
+      <div className="flex items-center justify-between px-4 py-3.5">
         <div className="flex items-center gap-2">
-          <Icon className={`h-4 w-4 ${headerColor}`} />
-          <h3 className={`text-sm font-semibold ${headerColor}`}>
+          <div className="grid size-7 place-items-center rounded-lg bg-background/70 ring-1 ring-border/70">
+            <Icon className={`h-4 w-4 ${headerColor}`} />
+          </div>
+          <h3 className={`text-sm font-semibold tracking-tight ${headerColor}`}>
             {column.name}
           </h3>
-          <span className="text-xs text-slate-400 dark:text-slate-500 ml-1">
+          <span className="ml-1 rounded-full bg-background/70 px-2 py-0.5 text-[11px] font-medium text-muted-foreground ring-1 ring-border/70">
             {column.tasks.length}
           </span>
         </div>
         <Button
           variant="ghost"
           size="icon"
-          className="h-7 w-7"
+          className="h-8 w-8 rounded-xl hover:bg-background/80"
           onClick={handleCreateTask}
         >
           <Plus className="h-4 w-4" />
@@ -80,15 +91,15 @@ export function Column({ column }: ColumnProps) {
 
       <div
         ref={setNodeRef}
-        className={`flex-1 flex flex-col gap-2 px-2 pb-2 min-h-[120px] overflow-y-auto transition-colors rounded-b-xl ${
-          isOver ? "bg-slate-200/50 dark:bg-slate-700/20" : ""
+        className={`flex min-h-[120px] flex-1 flex-col gap-3 overflow-y-auto px-3 pb-3 transition-colors ${
+          isOver ? "bg-background/52" : ""
         }`}
       >
         {column.tasks.map((task) => (
           <TaskCard key={task.id} task={task} />
         ))}
         {column.tasks.length === 0 && (
-          <div className="flex items-center justify-center flex-1 text-xs text-slate-400 dark:text-slate-500 py-8">
+          <div className="flex flex-1 items-center justify-center rounded-xl border border-dashed border-border/80 bg-background/35 py-8 text-xs text-muted-foreground">
             Drop tasks here
           </div>
         )}

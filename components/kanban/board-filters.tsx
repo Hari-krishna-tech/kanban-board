@@ -9,7 +9,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useUIStore } from "@/store/ui-store";
-import { Filter } from "lucide-react";
+import { Filter, Tag as TagIcon } from "lucide-react";
 import type { Tag } from "@/types";
 
 interface BoardFiltersProps {
@@ -33,10 +33,10 @@ export function BoardFilters({ tags }: BoardFiltersProps) {
   };
 
   return (
-    <div className="flex items-center gap-3 px-4 py-2 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+    <div className="flex flex-wrap items-center gap-3 border-b border-border/70 bg-background/55 px-4 py-3 backdrop-blur-xl lg:px-6">
       <Select value={filters.priority || "all"} onValueChange={handlePriorityChange}>
-        <SelectTrigger className="w-[130px] h-8 text-xs">
-          <Filter className="h-3 w-3 mr-1" />
+        <SelectTrigger className="h-9 w-[150px] rounded-xl bg-card/80 text-xs shadow-sm">
+          <Filter className="mr-1 h-3.5 w-3.5" />
           <SelectValue placeholder="Priority" />
         </SelectTrigger>
         <SelectContent>
@@ -48,7 +48,8 @@ export function BoardFilters({ tags }: BoardFiltersProps) {
       </Select>
 
       <Select value={filters.tagId || "all"} onValueChange={handleTagChange}>
-        <SelectTrigger className="w-[130px] h-8 text-xs">
+        <SelectTrigger className="h-9 w-[150px] rounded-xl bg-card/80 text-xs shadow-sm">
+          <TagIcon className="mr-1 h-3.5 w-3.5" />
           <SelectValue placeholder="Tag" />
         </SelectTrigger>
         <SelectContent>
@@ -65,7 +66,7 @@ export function BoardFilters({ tags }: BoardFiltersProps) {
         <Button
           variant="ghost"
           size="sm"
-          className="h-7 text-xs text-slate-500"
+          className="h-9 rounded-xl text-xs text-muted-foreground"
           onClick={handleClear}
         >
           Clear all
