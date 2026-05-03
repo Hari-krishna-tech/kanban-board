@@ -14,6 +14,7 @@ import {
   PanelLeftClose,
   PanelLeft,
   LayoutGrid,
+  Sparkles,
 } from "lucide-react";
 import { useUIStore } from "@/store/ui-store";
 
@@ -50,15 +51,22 @@ export function Sidebar({ user }: SidebarProps) {
 
       <aside
         className={cn(
-          "fixed inset-y-0 left-0 z-40 flex w-64 flex-col border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 transition-transform lg:relative lg:translate-x-0",
+          "fixed inset-y-0 left-0 z-40 flex w-64 flex-col border-r border-sidebar-border bg-sidebar/95 text-sidebar-foreground shadow-2xl shadow-slate-950/5 backdrop-blur-xl transition-transform lg:relative lg:translate-x-0 lg:shadow-none",
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >
-        <div className="flex h-14 items-center gap-2 px-4 border-b border-slate-200 dark:border-slate-800">
-          <LayoutGrid className="h-5 w-5 text-slate-700 dark:text-slate-200" />
-          <span className="font-semibold text-slate-900 dark:text-white">
-            Learning Kanban
-          </span>
+        <div className="flex h-16 items-center gap-3 border-b border-sidebar-border px-4">
+          <div className="grid size-9 place-items-center rounded-xl bg-primary text-primary-foreground shadow-sm">
+            <LayoutGrid className="h-4 w-4" />
+          </div>
+          <div className="min-w-0">
+            <span className="block truncate text-sm font-semibold tracking-tight">
+              Learning Kanban
+            </span>
+            <span className="block truncate text-[11px] text-muted-foreground">
+              Study flow manager
+            </span>
+          </div>
           <Button
             variant="ghost"
             size="icon"
@@ -69,7 +77,7 @@ export function Sidebar({ user }: SidebarProps) {
           </Button>
         </div>
 
-        <nav className="flex-1 px-3 py-4 space-y-1">
+        <nav className="flex-1 space-y-1.5 px-3 py-4">
           {links.map((link) => (
             <Link
               key={link.href}
@@ -78,10 +86,10 @@ export function Sidebar({ user }: SidebarProps) {
                 if (window.innerWidth < 1024) toggleSidebar();
               }}
               className={cn(
-                "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors",
+                "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all",
                 pathname === link.href
-                  ? "bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white"
-                  : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800/50"
+                  ? "bg-sidebar-accent text-sidebar-accent-foreground shadow-sm ring-1 ring-sidebar-border"
+                  : "text-muted-foreground hover:bg-sidebar-accent/70 hover:text-sidebar-accent-foreground"
               )}
             >
               <link.icon className="h-4 w-4" />
@@ -93,25 +101,35 @@ export function Sidebar({ user }: SidebarProps) {
         <Separator />
 
         <div className="p-3">
-          <div className="flex items-center gap-3 px-2">
-            <Avatar className="h-8 w-8">
+          <div className="mb-3 rounded-xl border border-sidebar-border bg-background/45 p-3">
+            <div className="mb-2 flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
+              <Sparkles className="h-3.5 w-3.5 text-primary" />
+              Focus mode
+            </div>
+            <p className="text-xs leading-5 text-muted-foreground">
+              Move one task at a time from learning to practice.
+            </p>
+          </div>
+
+          <div className="flex items-center gap-3 rounded-xl px-2 py-1.5">
+            <Avatar className="h-9 w-9 ring-2 ring-background">
               <AvatarImage src={user?.image || undefined} />
-              <AvatarFallback className="text-xs">
+              <AvatarFallback className="bg-primary text-xs text-primary-foreground">
                 {user?.name?.charAt(0) || "?"}
               </AvatarFallback>
             </Avatar>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-slate-900 dark:text-white truncate">
+              <p className="truncate text-sm font-medium">
                 {user?.name || "User"}
               </p>
-              <p className="text-xs text-slate-500 dark:text-slate-400 truncate">
+              <p className="truncate text-xs text-muted-foreground">
                 {user?.email || "No email"}
               </p>
             </div>
           </div>
           <Button
             variant="ghost"
-            className="w-full justify-start mt-2 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+            className="mt-2 w-full justify-start text-muted-foreground hover:text-foreground"
             onClick={() => signOut()}
           >
             <LogOut className="h-4 w-4 mr-2" />

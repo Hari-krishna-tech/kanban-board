@@ -15,15 +15,15 @@ interface TaskCardProps {
 }
 
 const priorityColors: Record<string, string> = {
-  High: "bg-red-100 text-red-700 dark:bg-red-950 dark:text-red-300",
-  Medium: "bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-300",
-  Low: "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400",
+  High: "border-red-200 bg-red-50 text-red-700 dark:border-red-900/70 dark:bg-red-950/50 dark:text-red-300",
+  Medium: "border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-900/70 dark:bg-amber-950/50 dark:text-amber-300",
+  Low: "border-slate-200 bg-slate-100 text-slate-600 dark:border-slate-800 dark:bg-slate-800/70 dark:text-slate-300",
 };
 
 const typeColors: Record<string, string> = {
-  Concept: "bg-purple-100 text-purple-700 dark:bg-purple-950 dark:text-purple-300",
-  Project: "bg-blue-100 text-blue-700 dark:bg-blue-950 dark:text-blue-300",
-  Revision: "bg-teal-100 text-teal-700 dark:bg-teal-950 dark:text-teal-300",
+  Concept: "border-violet-200 bg-violet-50 text-violet-700 dark:border-violet-900/70 dark:bg-violet-950/50 dark:text-violet-300",
+  Project: "border-sky-200 bg-sky-50 text-sky-700 dark:border-sky-900/70 dark:bg-sky-950/50 dark:text-sky-300",
+  Revision: "border-teal-200 bg-teal-50 text-teal-700 dark:border-teal-900/70 dark:bg-teal-950/50 dark:text-teal-300",
 };
 
 export function TaskCard({ task, isOverlay }: TaskCardProps) {
@@ -56,19 +56,19 @@ export function TaskCard({ task, isOverlay }: TaskCardProps) {
       {...listeners}
       onClick={handleClick}
       className={cn(
-        "group bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800 p-3 cursor-pointer hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-sm transition-all",
-        isDragging && "opacity-50 shadow-lg",
-        isOverlay && "shadow-xl"
+        "group cursor-pointer rounded-xl border border-border/75 bg-card/92 p-3.5 shadow-sm transition-all hover:-translate-y-0.5 hover:border-primary/35 hover:shadow-lg hover:shadow-slate-950/5 dark:bg-card/78",
+        isDragging && "opacity-50 shadow-xl",
+        isOverlay && "shadow-2xl"
       )}
     >
       <div className="flex items-start justify-between gap-2 mb-1.5">
-        <h4 className="text-sm font-medium text-slate-900 dark:text-white line-clamp-2 leading-snug">
+        <h4 className="line-clamp-2 text-sm font-semibold leading-snug tracking-tight text-foreground">
           {task.title}
         </h4>
       </div>
 
       {task.description && (
-        <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mb-2">
+        <p className="mb-3 line-clamp-2 text-xs leading-5 text-muted-foreground">
           {task.description}
         </p>
       )}
@@ -78,7 +78,7 @@ export function TaskCard({ task, isOverlay }: TaskCardProps) {
           <Badge
             key={tt.tag.id}
             variant="secondary"
-            className="text-[10px] px-1.5 py-0 h-4"
+            className="h-5 rounded-md px-1.5 py-0 text-[10px] font-medium"
           >
             {tt.tag.name}
           </Badge>
@@ -88,19 +88,19 @@ export function TaskCard({ task, isOverlay }: TaskCardProps) {
       <div className="flex items-center gap-2">
         <Badge
           variant="outline"
-          className={cn("text-[10px] px-1.5 py-0 h-4", priorityColors[task.priority])}
+          className={cn("h-5 rounded-md px-1.5 py-0 text-[10px] font-medium", priorityColors[task.priority])}
         >
           {task.priority}
         </Badge>
         <Badge
           variant="outline"
-          className={cn("text-[10px] px-1.5 py-0 h-4", typeColors[task.taskType])}
+          className={cn("h-5 rounded-md px-1.5 py-0 text-[10px] font-medium", typeColors[task.taskType])}
         >
           {task.taskType}
         </Badge>
       </div>
 
-      <div className="flex items-center justify-between mt-2 text-[10px] text-slate-400 dark:text-slate-500">
+      <div className="mt-3 flex items-center justify-between text-[10px] text-muted-foreground">
         {task.dueDate ? (
           <span className="flex items-center gap-1">
             <Calendar className="h-3 w-3" />
@@ -119,7 +119,7 @@ export function TaskCard({ task, isOverlay }: TaskCardProps) {
 
       {totalSubtasks > 0 && (
         <div className="mt-2 space-y-1">
-          <div className="flex items-center justify-between text-[10px] text-slate-400">
+          <div className="flex items-center justify-between text-[10px] text-muted-foreground">
             <span>
               {completedSubtasks}/{totalSubtasks} subtasks
             </span>
